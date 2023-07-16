@@ -3,12 +3,12 @@
   become: true
   tasks:
   - name: clone the repo with java code on every worker node
-    git: repo=https://github.com/akhilfrancischirayath/akhilfrancischirayath-Ansible-Jenkins-Akhil.git dest=/tmp/devopscode-repo
+    git: repo=https://github.com/Sonal0409/DevOpsCodeDemo.git dest=/home/ansiuser/PROJECT2/code
   - name: Maven to build the code
-    command: chdir=/tmp/devopscode-repo mvn package
+    command: chdir=/home/ansiuser/PROJECT2/code mvn package
   - name: From target folder copy the addressbook.war in current directory
-    copy: src=/tmp/devopscode-repo/target/addressbook.war dest=/tmp/devopscode-repo remote_src=yes
+    copy: src=/home/ansiuser/PROJECT2/code/target/addressbook.war dest=/home/ansiuser/PROJECT2/code remote_src=yes
   - name: Build the dockerfile
-    command: chdir=/tmp/devopscode-repo  docker build -t myimage:ansiblenew .
+    command: chdir=/home/ansiuser/PROJECT2/code  docker build -t myimage:ansible .
   - name: Run the image to deploy the application on tomcat container
-    command: docker run -d -P myimage:ansiblenew
+    command: docker run -d -P myimage:ansible
